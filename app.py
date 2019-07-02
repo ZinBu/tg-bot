@@ -16,7 +16,10 @@ def send_message():
 
     if token == TOKEN:
         try:
-            bot.send_message_to_chats(text)
+            bot.send_message_to_chats(
+                message=text,
+                chat_id=request.json.get('chat')
+            )
         except BotError as error:
             return Response(response=str(error), status=409)
         except Exception:

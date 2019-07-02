@@ -24,7 +24,11 @@ class MessageBot:
             raise BotError('Не удалось выполнить запрос в телегу')
         return {x['message']['chat']['id'] for x in updates['result']}
 
-    def send_message_to_chats(self, message):
+    def send_message_to_chats(self, message, chat_id=None):
+        if chat_id:
+            self._post('sendMessage', {'chat_id': chat_id, 'text': message})
+            return
+
         for chat in self.get_chat_ids():
             self._post('sendMessage', {'chat_id': chat, 'text': message})
             sleep(1.1)
