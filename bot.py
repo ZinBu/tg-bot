@@ -10,13 +10,22 @@ class BotError(Exception):
 
 
 class MessageBot:
+    TIMEOUT = 15.
     URL = f"https://api.telegram.org/bot{TOKEN}/"
 
     def _get(self, method, params=None):
-        return requests.get(self.URL + method, params, timeout=5).json()
+        return requests.get(
+            url=self.URL + method,
+            params=params,
+            timeout=self.TIMEOUT
+        ).json()
 
     def _post(self, method, data=None):
-        return requests.get(self.URL + method, json=data, timeout=5).json()
+        return requests.post(
+            url=self.URL + method,
+            json=data,
+            timeout=self.TIMEOUT
+        ).json()
 
     def get_chat_ids(self):
         updates = self._get('getUpdates')
@@ -36,4 +45,4 @@ class MessageBot:
 
 if __name__ == '__main__':
     b = MessageBot()
-    b.send_message_to_chats('Проверка')
+    b.send_message_to_chats('Hi! It is a test!', 185093563)

@@ -25,7 +25,7 @@ def send_message():
         except Exception:
             return Response(response=':((', status=409)
 
-        return Response(status=201)
+        return Response(status=200)
 
     return Response(status=403)
 
